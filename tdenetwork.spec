@@ -820,7 +820,9 @@ track of the time spent online for you.
 %package -n trinity-krdc
 Summary:		Remote Desktop Connection for Trinity
 Group:			Applications/Internet
-Requires:		rdesktop
+
+# rdesktop needs a maintainer
+#Requires:		rdesktop
 
 %description -n trinity-krdc
 krdc is an TDE graphical client for the rfb protocol, used by VNC,
