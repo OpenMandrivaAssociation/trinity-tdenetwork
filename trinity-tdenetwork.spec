@@ -16,12 +16,6 @@
 #  Having KDE libraries may cause FTBFS here !
 
 # TDE variables
-%define tde_epoch 2
-%if "%{?tde_version}" == ""
-%define tde_version 14.1.5
-%endif
-%define pkg_rel 3
-
 %define tde_pkg tdenetwork
 %define tde_prefix /opt/trinity
 
@@ -41,14 +35,14 @@
 Name:			trinity-%{tde_pkg}
 Summary:		Trinity Desktop Environment - Network Applications
 Group:			Applications/Internet
-Version:		%{tde_version}
-Release:		%{?!preversion:%{pkg_rel}}%{?preversion:0_%{preversion}}%{?dist}
+Version:		14.1.5
+Release:		4
 URL:			http://www.trinitydesktop.org/
 
 License:	GPLv2+
 
 
-Source0:	https://mirror.ppa.trinitydesktop.org/trinity/releases/R%{tde_version}/main/core/%{tarball_name}-%{version}%{?preversion:~%{preversion}}.tar.xz
+Source0:	https://mirror.ppa.trinitydesktop.org/trinity/releases/R%{version}/main/core/%{tarball_name}-%{version}.tar.xz
 Source1:	kppp.pamd
 Source2:	ktalk
 Source3:	trinity-tdenetwork-rpmlintrc
@@ -71,11 +65,11 @@ BuildOption:    -DBUILD_KOPETE_PROTOCOL_GADU=%{!?with_gadu:OFF}%{?with_gadu:ON}
 BuildOption:    -DBUILD_KOPETE_PROTOCOL_MEANWHILE=%{!?with_meanwhile:OFF}%{?with_meanwhile:ON}
 BuildOption:    -DBUILD_WIFI=%{!?with_wifi:OFF}%{?with_wifi:ON}
 
-BuildRequires:	trinity-tdelibs-devel >= %{tde_version}
-BuildRequires:	trinity-tdebase-devel >= %{tde_version}
-BuildRequires:	libtqca-devel >= %{tde_epoch}:1.0
+BuildRequires:	trinity-tdelibs-devel >= %{version}
+BuildRequires:	trinity-tdebase-devel >= %{version}
+BuildRequires:	pkgconfig(tqca)
 
-BuildRequires:	trinity-tde-cmake >= %{tde_version}
+BuildRequires:	trinity-tde-cmake >= %{version}
 BuildRequires:	gettext
 BuildRequires:	coreutils 
 
@@ -148,34 +142,34 @@ BuildRequires:  pkgconfig(libacl)
 # XINETD support
 %{?with_xinetd:Requires:		xinetd}
 
-Obsoletes:	trinity-kdenetwork < %{?epoch:%{epoch}:}%{version}-%{release}
-Provides:	trinity-kdenetwork = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes:	trinity-kdenetwork-libs < %{?epoch:%{epoch}:}%{version}-%{release}
-Provides:	trinity-kdenetwork-libs = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes:	trinity-kdenetwork-extras < %{?epoch:%{epoch}:}%{version}-%{release}
-Provides:	trinity-kdenetwork-extras = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes:	tdenetwork < %{?epoch:%{epoch}:}%{version}-%{release}
-Provides:	tdenetwork = %{?epoch:%{epoch}:}%{version}-%{release}
+Obsoletes:	trinity-kdenetwork < %{EVRD}
+Provides:	trinity-kdenetwork = %{EVRD}
+Obsoletes:	trinity-kdenetwork-libs < %{EVRD}
+Provides:	trinity-kdenetwork-libs = %{EVRD}
+Obsoletes:	trinity-kdenetwork-extras < %{EVRD}
+Provides:	trinity-kdenetwork-extras = %{EVRD}
+Obsoletes:	tdenetwork < %{EVRD}
+Provides:	tdenetwork = %{EVRD}
 
-Requires: trinity-dcoprss = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires: %{name}-filesharing = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires: trinity-kdict = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires: %{name}-tdefile-plugins = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires: trinity-kget = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires: trinity-knewsticker = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires: trinity-kopete = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires: trinity-kopete-nowlistening = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires: trinity-kpf = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires: trinity-kppp = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires: trinity-krdc = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires: trinity-krfb = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires: trinity-ksirc = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires: trinity-ktalkd = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires: trinity-dcoprss = %{EVRD}
+Requires: %{name}-filesharing = %{EVRD}
+Requires: trinity-kdict = %{EVRD}
+Requires: %{name}-tdefile-plugins = %{EVRD}
+Requires: trinity-kget = %{EVRD}
+Requires: trinity-knewsticker = %{EVRD}
+Requires: trinity-kopete = %{EVRD}
+Requires: trinity-kopete-nowlistening = %{EVRD}
+Requires: trinity-kpf = %{EVRD}
+Requires: trinity-kppp = %{EVRD}
+Requires: trinity-krdc = %{EVRD}
+Requires: trinity-krfb = %{EVRD}
+Requires: trinity-ksirc = %{EVRD}
+Requires: trinity-ktalkd = %{EVRD}
 %if %{with wifi}
-Requires: trinity-kwifimanager = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires: trinity-kwifimanager = %{EVRD}
 %endif
-Requires: trinity-librss = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires: trinity-lisa = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires: trinity-librss = %{EVRD}
+Requires: trinity-lisa = %{EVRD}
 
 %description
 This metapackage includes a collection of network and networking related
@@ -232,17 +226,17 @@ DCOP is the TDE interprocess communication protocol.
 %package devel
 Summary:		Development files for the Trinity network module
 Group:			Development/Libraries/Other
-Requires:		%{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:		trinity-kdict = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:		trinity-kopete = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:		trinity-ksirc = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:		trinity-librss = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:		trinity-tdelibs-devel >= %{tde_version}
+Requires:		%{name} = %{EVRD}
+Requires:		trinity-kdict = %{EVRD}
+Requires:		trinity-kopete = %{EVRD}
+Requires:		trinity-ksirc = %{EVRD}
+Requires:		trinity-librss = %{EVRD}
+Requires:		trinity-tdelibs-devel >= %{version}
 
-Obsoletes:	trinity-kdenetwork-devel < %{?epoch:%{epoch}:}%{version}-%{release}
-Provides:	trinity-kdenetwork-devel = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes:	tdenetwork-devel < %{?epoch:%{epoch}:}%{version}-%{release}
-Provides:	tdenetwork-devel = %{?epoch:%{epoch}:}%{version}-%{release}
+Obsoletes:	trinity-kdenetwork-devel < %{EVRD}
+Provides:	trinity-kdenetwork-devel = %{EVRD}
+Obsoletes:	tdenetwork-devel < %{EVRD}
+Provides:	tdenetwork-devel = %{EVRD}
 
 %description devel
 This is the development package which contains the headers for the TDE RSS
@@ -273,8 +267,8 @@ development-related files for the TDE network module.
 Summary:		Network filesharing configuration module for Trinity
 Group:   		Applications/Internet
 
-Obsoletes:		tdenetwork-filesharing < %{?epoch:%{epoch}:}%{version}-%{release}
-Provides:		tdenetwork-filesharing = %{?epoch:%{epoch}:}%{version}-%{release}
+Obsoletes:		tdenetwork-filesharing < %{EVRD}
+Provides:		tdenetwork-filesharing = %{EVRD}
 
 %description filesharing
 This package provides a Trinity Control Center module to configure
@@ -301,7 +295,7 @@ NFS and Samba.
 %package -n trinity-kdict
 Summary:		Dictionary client for Trinity
 Group:			Applications/Internet
-Requires:		trinity-kicker >= %{tde_version}
+Requires:		trinity-kicker >= %{version}
 
 %description -n trinity-kdict
 KDict is an advanced TDE graphical client for the DICT Protocol, with full
@@ -328,10 +322,10 @@ basic as well as advanced queries.
 Summary:		Torrent metainfo plugin for Trinity
 Group:			Applications/Internet
 
-Obsoletes:		tdenetwork-kfile-plugins < %{?epoch:%{epoch}:}%{version}-%{release}
-Provides:		tdenetwork-kfile-plugins = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes:		trinity-tdenetwork-kfile-plugins < %{?epoch:%{epoch}:}%{version}-%{release}
-Provides:		trinity-tdenetwork-kfile-plugins = %{?epoch:%{epoch}:}%{version}-%{release}
+Obsoletes:		tdenetwork-kfile-plugins < %{EVRD}
+Provides:		tdenetwork-kfile-plugins = %{EVRD}
+Obsoletes:		trinity-tdenetwork-kfile-plugins < %{EVRD}
+Provides:		trinity-tdenetwork-kfile-plugins = %{EVRD}
 
 %description tdefile-plugins
 This package provides a metainformation plugin for bittorrent files.
@@ -349,8 +343,8 @@ dialog in konqueror and other file-handling applications.
 %package -n trinity-kget
 Summary:		Download manager for Trinity
 Group:			Applications/Internet
-Requires:		trinity-tdebase-data >= %{tde_version}
-Requires:		trinity-konqueror >= %{tde_version}
+Requires:		trinity-tdebase-data >= %{version}
+Requires:		trinity-konqueror >= %{version}
 
 %description -n trinity-kget
 KGet is a a download manager similar to GetRight or Go!zilla. It keeps
@@ -387,7 +381,7 @@ applications and Netscape.
 %package -n trinity-knewsticker
 Summary:		News ticker applet for Trinity
 Group:			Applications/Internet
-Requires:		trinity-kicker >= %{tde_version}
+Requires:		trinity-kicker >= %{version}
 
 %description -n trinity-knewsticker
 This is a news ticker applet for the Trinity panel. It can scroll news from
@@ -418,9 +412,9 @@ good news sources which provide such files.
 %package -n trinity-kopete
 Summary:		Instant messenger for Trinity
 Group:			Applications/Internet
-Requires:		trinity-tdebase-bin >= %{tde_version}
-Requires:		trinity-tdebase-data >= %{tde_version}
-Requires:		trinity-filesystem >= %{tde_version}
+Requires:		trinity-tdebase-bin >= %{version}
+Requires:		trinity-tdebase-data >= %{version}
+Requires:		trinity-filesystem >= %{version}
 
 %description -n trinity-kopete
 Kopete is an instant messenger program which can communicate with a variety
@@ -613,8 +607,8 @@ Support for more IM protocols can be added through a plugin system.
 %package -n trinity-kopete-nowlistening
 Summary:		Nowlistening (xmms) plugin for Kopete
 Group:			Applications/Internet
-Requires:		trinity-kopete = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:		trinity-filesystem >= %{tde_version}
+Requires:		trinity-kopete = %{EVRD}
+Requires:		trinity-filesystem >= %{version}
 
 %description -n trinity-kopete-nowlistening
 Kopete includes the "Now Listening" plug-in that can report what music you
@@ -635,7 +629,7 @@ noatun, kscd, juk, kaffeine and amarok.
 %package -n trinity-kpf
 Summary:		Public fileserver for Trinity
 Group:			Applications/Internet
-Requires:		trinity-kicker >= %{tde_version}
+Requires:		trinity-kicker >= %{version}
 
 %description -n trinity-kpf
 kpf provides simple file sharing using HTTP. kpf is strictly a public
@@ -789,8 +783,8 @@ recommended package libio-socket-ssl-perl.
 %package -n trinity-ktalkd
 Summary:		Talk daemon for Trinity
 Group:			Applications/Internet
-Requires:		trinity-kcontrol >= %{tde_version}
-Requires:		trinity-tdebase-data >= %{tde_version}
+Requires:		trinity-kcontrol >= %{version}
+Requires:		trinity-tdebase-data >= %{version}
 %if %{with xinetd}
 Requires:		xinetd
 %endif
@@ -825,7 +819,7 @@ and shouldn't be run on a multi-user machine.
 %package -n trinity-kwifimanager
 Summary:		Wireless lan manager for Trinity
 Group:			Applications/Internet
-Requires:		trinity-kicker >= %{tde_version}
+Requires:		trinity-kicker >= %{version}
 
 %description -n trinity-kwifimanager
 KWiFiManager suite is a set of tools which allows you to manage your
@@ -872,8 +866,8 @@ automatically when needed.
 %package -n trinity-lisa
 Summary:			LAN information server for Trinity
 Group:				Applications/Internet
-Requires:		trinity-konqueror >= %{tde_version}
-Requires:		trinity-tdebase-data >= %{tde_version}
+Requires:		trinity-konqueror >= %{version}
+Requires:		trinity-tdebase-data >= %{version}
 
 %description -n trinity-lisa
 LISa is intended to provide TDE with a kind of "network neighborhood"
