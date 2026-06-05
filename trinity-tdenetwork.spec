@@ -36,7 +36,7 @@ Name:			trinity-%{tde_pkg}
 Summary:		Trinity Desktop Environment - Network Applications
 Group:			Applications/Internet
 Version:		14.1.6
-Release:		1
+Release:		2
 URL:			http://www.trinitydesktop.org/
 
 License:	GPLv2+
